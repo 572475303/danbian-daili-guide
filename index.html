@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单边代理业主指南 · 卖房，也可以有人只为你站住立场</title>
+<style>
+  :root{
+    --ink:#16283c; --ink-2:#3c4f66; --ink-3:#6b7c92;
+    --navy:#16324f; --navy-2:#1d4266; --navy-3:#2c5f8f;
+    --gold:#c9a227; --gold-soft:#f3e6bd; --gold-bg:#fdf7e6;
+    --bg:#f4f6f9; --card:#ffffff; --line:#e3e8ef;
+    --red:#c0392b; --red-bg:#fdf0ee;
+    --green:#1e7a4f; --green-bg:#ecf7f1;
+    --blue:#2b6cb0; --blue-bg:#eef4fb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+    line-height:1.78; font-size:15px; padding:0 0 80px;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:0 22px;}
+
+  /* ---------- 封面 ---------- */
+  .cover{
+    background:linear-gradient(135deg,#12283e 0%,#16324f 45%,#1d4266 100%);
+    color:#fff; padding:52px 0 44px; margin-bottom:34px;
+    border-bottom:4px solid var(--gold);
+  }
+  .cover .tag{
+    display:inline-block; font-size:12px; letter-spacing:3px; color:var(--gold);
+    border:1px solid rgba(201,162,39,.55); border-radius:3px; padding:3px 12px; margin-bottom:18px;
+  }
+  .cover h1{font-size:31px; line-height:1.4; font-weight:700; letter-spacing:.5px;}
+  .cover h1 em{color:var(--gold); font-style:normal;}
+  .cover .sub{margin-top:14px; color:#c3d2e2; font-size:14px; max-width:740px;}
+  .cover .meta{margin-top:22px; display:flex; flex-wrap:wrap; gap:10px 26px; font-size:12.5px; color:#93a8bd;}
+  .cover .meta b{color:#e8eef5; font-weight:600;}
+
+  /* ---------- 通用 ---------- */
+  h2.sec{
+    font-size:21px; margin:46px 0 6px; padding-left:14px;
+    border-left:5px solid var(--gold); line-height:1.4;
+  }
+  h2.sec small{display:block; font-size:12.5px; color:var(--ink-3); font-weight:400; letter-spacing:1px; margin-top:2px;}
+  .lead{color:var(--ink-2); margin:10px 0 18px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px; margin:14px 0; box-shadow:0 1px 3px rgba(22,40,60,.04);
+  }
+  .card h3{font-size:16px; margin-bottom:10px; color:var(--navy);}
+  .card h3 .n{
+    display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--navy); color:#fff;
+    font-size:12px; align-items:center; justify-content:center; margin-right:8px; vertical-align:2px;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .note{font-size:12.5px; color:var(--ink-3); margin-top:10px;}
+  .pill{display:inline-block; font-size:11.5px; padding:1px 9px; border-radius:20px; margin-right:6px; font-weight:600;}
+  .pill.g{background:var(--green-bg); color:var(--green);}
+  .pill.r{background:var(--red-bg); color:var(--red);}
+  .pill.b{background:var(--blue-bg); color:var(--blue);}
+  .pill.y{background:var(--gold-bg); color:#8a6d12;}
+
+  /* ---------- 共鸣卡 ---------- */
+  .verdict{
+    background:linear-gradient(135deg,#fdf7e6,#fff);
+    border:1px solid #eadfae; border-left:6px solid var(--gold);
+    border-radius:10px; padding:22px 24px; margin:18px 0;
+  }
+  .verdict h3{color:#8a6d12; font-size:17px; margin-bottom:8px;}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px; margin:12px 0; background:#fff;}
+  th{background:var(--navy); color:#fff; text-align:left; padding:9px 11px; font-weight:600; font-size:13px;}
+  td{padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:nth-child(even) td{background:#fafbfd;}
+  td.hl{color:var(--gold); font-weight:700;}
+
+  .bars{margin:16px 0 6px;}
+  .bar-row{display:flex; align-items:center; margin:9px 0; font-size:13px;}
+  .bar-label{width:190px; flex:none; color:var(--ink-2); text-align:right; padding-right:12px;}
+  .bar-track{flex:1; background:#eef1f5; border-radius:4px; height:24px; position:relative; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:4px; background:linear-gradient(90deg,#1d4266,#2c5f8f);}
+  .bar-fill.gold{background:linear-gradient(90deg,#c9a227,#e0bc55);}
+  .bar-val{width:120px; flex:none; padding-left:10px; font-weight:700; color:var(--navy); font-size:13px;}
+  @media(max-width:720px){.bar-label{width:118px; font-size:12px;} .bar-val{width:86px; font-size:12px;}}
+
+  .prog-row{margin:10px 0;}
+  .prog-row .t{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-2); margin-bottom:4px;}
+  .prog-row .t b{color:var(--navy);}
+  .prog-track{height:14px; background:#eef1f5; border-radius:7px; overflow:hidden;}
+  .prog-fill{height:100%; background:linear-gradient(90deg,#c9a227,#ddb94e); border-radius:7px;}
+
+  .flow{display:flex; flex-wrap:wrap; gap:0; margin:18px 0 6px;}
+  .flow .step{
+    flex:1; min-width:120px; background:#fff; border:1px solid var(--line); border-top:4px solid var(--navy);
+    padding:12px 10px; position:relative; text-align:center;
+  }
+  .flow .step b{display:block; font-size:13.5px; color:var(--navy);}
+  .flow .step span{display:block; font-size:11.5px; color:var(--ink-3); margin-top:5px; line-height:1.5;}
+  .flow .step .k{font-size:11px; color:var(--gold); font-weight:700; margin-bottom:2px; display:block;}
+  .flow .step:after{
+    content:"›"; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+    color:var(--gold); font-size:20px; font-weight:700; z-index:2;
+  }
+  .flow .step:last-child:after{display:none;}
+  @media(max-width:720px){.flow .step{min-width:44%; margin-bottom:10px;} .flow .step:after{display:none;}}
+
+  .tf{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:14px 0;}
+  .tf .col{padding:18px 20px;}
+  .tf .col.real{background:var(--green-bg); border-right:1px solid var(--line);}
+  .tf .col.fake{background:var(--red-bg);}
+  .tf h4{font-size:15px; margin-bottom:10px;}
+  .tf .real h4{color:var(--green);} .tf .fake h4{color:var(--red);}
+  .tf ul{list-style:none;}
+  .tf li{font-size:13px; padding:5px 0 5px 20px; position:relative; color:var(--ink-2);}
+  .tf .real li:before{content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700;}
+  .tf .fake li:before{content:"✕"; position:absolute; left:0; color:var(--red); font-weight:700;}
+  @media(max-width:720px){.tf{grid-template-columns:1fr;} .tf .col.real{border-right:none; border-bottom:1px solid var(--line);}}
+
+  blockquote{
+    border-left:4px solid var(--gold); background:var(--gold-bg);
+    padding:12px 16px; margin:12px 0; font-size:13.5px; color:#5c4d17; border-radius:0 6px 6px 0;
+  }
+  blockquote .who{display:block; margin-top:6px; font-size:12px; color:#9a8441;}
+
+  .src{font-size:12px; color:var(--ink-3);}
+  .src li{margin:6px 0;}
+  .kbox{background:var(--blue-bg); border:1px solid #cfe0f2; border-radius:8px; padding:14px 16px; margin:12px 0; font-size:13.5px; color:#1e4a76;}
+  .kbox b{color:#123a5e;}
+  ol.tight, ul.tight{padding-left:22px; font-size:13.5px; color:var(--ink-2);}
+  ol.tight li, ul.tight li{margin:5px 0;}
+  .footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-3); text-align:center;}
+
+  /* ---------- 痛点卡 ---------- */
+  .pain{background:#fff; border:1px solid #f0d4cf; border-left:4px solid var(--red); border-radius:8px; padding:14px 16px; margin:12px 0;}
+  .pain .h{font-size:14px; font-weight:700; color:var(--red); margin-bottom:6px;}
+  .pain p{font-size:13px; color:var(--ink-2);}
+
+  /* ---------- 好处卡 ---------- */
+  .benefit{background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:12px 0; position:relative; overflow:hidden;}
+  .benefit:before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--gold);}
+  .benefit h4{font-size:15px; color:var(--navy); margin-bottom:6px;}
+  .benefit p{font-size:13px; color:var(--ink-2);}
+
+  .cta{background:linear-gradient(135deg,#16324f,#1d4266); color:#fff; border-radius:12px; padding:26px 28px; margin:30px 0 12px; text-align:center;}
+  .cta h3{font-size:19px; color:#fff; margin-bottom:8px;}
+  .cta p{color:#c3d2e2; font-size:14px; max-width:640px; margin:0 auto;}
+  .cta .btn{display:inline-block; margin-top:16px; background:var(--gold); color:#1a2b3c; font-weight:700; font-size:14px; padding:10px 26px; border-radius:30px;}
+</style>
+</head>
+<body>
+
+<!-- ============ 封面 ============ -->
+<div class="cover">
+  <div class="wrap">
+    <div class="tag">业主卖房指南</div>
+    <h1>卖房，也可以有人<em>只为你站住立场</em></h1>
+    <div class="sub">
+      用大白话讲清楚：什么是单边代理、它和常见的中介有什么不同、能给你带来什么实实在在的好处、为什么深圳越来越多业主开始选择它。文末附一份「真假单边自查清单」，签约前花两分钟对照即可。
+    </div>
+    <div class="meta">
+      <div>日期：<b>2026-10-14</b></div>
+      <div>性质：<b>科普参考，非成交承诺</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ============ 〇 共鸣痛点 ============ -->
+<h2 class="sec">〇 · 卖房路上，这些扎心时刻你经历过吗<small>DO YOU RELATE</small></h2>
+<p class="lead">几位真实业主的反馈，几乎覆盖了卖房过程中最让人心累的瞬间。如果你也点头，那后面要讲的「单边代理」，可能正是为你准备的。</p>
+
+<div class="pain">
+  <div class="h">「只询价，不带看」</div>
+  <p>房子挂牌很久，很多中介打来电话，大部分只问价格、没有带看。我高位买的，现在降太多心里接受不了，而且好几个经纪人没带看、没见过面就让我降价，我觉得他们不公正。</p>
+  <div class="who" style="margin-top:6px;font-size:12px;color:#b08;">—— 王女士（委托后不到一个月卖出，且高于心理价位）</div>
+</div>
+<div class="pain">
+  <div class="h">「等得心急，反馈石沉大海」</div>
+  <p>挂牌一年多，中间几次带看都石沉大海。我准备去外地发展，房子卖不掉很心急，连续降价两次反馈还是不积极。委托后基本没怎么操心，每周收到一次汇报，推广渠道带来了很多片区外的买家，签完不到半个月就卖掉了。</p>
+  <div class="who" style="margin-top:6px;font-size:12px;color:#b08;">—— 刘先生</div>
+</div>
+<div class="pain">
+  <div class="h">「冷门户型，连电话都没几个」</div>
+  <p>中间排的小户型，通风采光不好，挂了一年多，别说带看，连电话都没几个，全都是让我再降价的。我一度不抱希望。代理方非常尊重我的挂牌价，做了很多推广预案，还给了建议挂牌价，跟我的心理预期差不多，一个月就成功售出。</p>
+  <div class="who" style="margin-top:6px;font-size:12px;color:#b08;">—— 李先生</div>
+</div>
+
+<div class="verdict">
+  <h3>三条原声，其实是一条痛点公式</h3>
+  <p style="font-size:14px;color:#5c4d17;">
+    <b>只询价不带看</b> × <b>没见面就劝降</b> × <b>无人反馈被动等</b> ＝ 业主对卖房过程的深度不信任。<br>
+    而「单边代理」要解决的，恰恰就是这三件事。
+  </p>
+</div>
+
+<!-- ============ 一 什么是单边代理 ============ -->
+<h2 class="sec">一 · 一句话讲清：单边代理是什么<small>WHAT IS IT</small></h2>
+<p class="lead">说人话：传统卖房，中介更像是「撮合买卖双方的中间人」；单边代理，是你请了一个<b>只对你（卖方）一个人负责</b>的房产代理人，立场上近似于「请了一位只为你打工的房产律师」。</p>
+
+<div class="grid2">
+  <div class="card">
+    <h3>核心就两个字：立场</h3>
+    <p style="font-size:13.5px;color:var(--ink-2);">
+      单边代理只代表卖方<b>或</b>买方其中一方。你卖房，他就只站你这边：帮你定价、帮你守价、帮你找买家、帮你把关合同，<b>不为快速成交去劝你降价</b>。
+    </p>
+  </div>
+  <div class="card">
+    <h3>钱上也只拿一边</h3>
+    <p style="font-size:13.5px;color:var(--ink-2);">
+      优秀的单边代理，<b>只收委托方（你）的钱</b>，不代买方收佣、不两头吃差价。立场和收费一致，才叫真单边。
+    </p>
+  </div>
+</div>
+
+<div class="kbox">
+  <b>一个常被混淆的点：单边 ≠ 独家。</b><br>
+  单边说的是「立场」（他只帮谁做事）；独家说的是「渠道」（你是不是只找了这一家）。<br>
+  对我们来说，这两件事可以分开选——你也可以只要「只代表我」的立场，而保留自己卖或找别家的权利。<b>签约前把这两件事讲清楚，是你的权利。</b>
+</div>
+
+<!-- ============ 二 区别对比 ============ -->
+<h2 class="sec">二 · 一张表看懂：和普通中介差在哪<small>SIDE BY SIDE</small></h2>
+<p class="lead">下面从「你作为业主」的体感出发，把两类模式摆在一起看。</p>
+
+<div class="card">
+  <table>
+    <tr><th style="width:120px;">对比项</th><th>常见双边/居间中介</th><th>单边代理（只代表你）</th></tr>
+    <tr><td><b>服务对象</b></td><td>一手托买卖双方</td><td class="hl">只代表你（卖方）一方</td></tr>
+    <tr><td><b>立场</b></td><td>中立撮合，靠成交赚信息差</td><td class="hl">近似你的代理人，只对委托人负责</td></tr>
+    <tr><td><b>价格谁说了算</b></td><td>常为了快点成交，两头劝</td><td class="hl">你拍板；专员替你挡试探、守底价</td></tr>
+    <tr><td><b>会不会被多家中介打扰</b></td><td>多家同时打电话、轮番议价</td><td class="hl">专属管家单点对接，你只需跟一个人</td></tr>
+    <tr><td><b>过程透不透明</b></td><td>挂牌后常「石沉大海」</td><td class="hl">带看、出价、反馈按期书面同步给你</td></tr>
+    <tr><td><b>收费</b></td><td>向一方或双方弹性收取</td><td class="hl">只向委托方收、写进合同、可提前算清</td></tr>
+  </table>
+  <p class="note">注：市场上也有机构自称「单边代理」但实际仍在双边撮合，辨别方法见文末「真假自查清单」。</p>
+</div>
+
+<!-- ============ 三 五大好处 ============ -->
+<h2 class="sec">三 · 单边代理，能给你带来什么实在好处<small>FIVE BENEFITS</small></h2>
+<p class="lead">把优秀单边代理的做法，翻译成你作为业主能摸得着的好处。</p>
+
+<div class="benefit">
+  <h4>① 终于有人真正「站你这边」</h4>
+  <p>不是嘴上说说。合同写清他只代表你、只收你的钱；谈价时他替你挡掉无效试探，而不是反过来劝你降。</p>
+</div>
+<div class="benefit">
+  <h4>② 卖房不再被打扰，省下大量精力</h4>
+  <p>专属管家统一对接所有中介、买家和带看安排，你只跟一个人沟通。有机构披露业主因此节省约 80% 的售房时间——不用再被一堆陌生电话轮番轰炸。</p>
+</div>
+<div class="benefit">
+  <h4>③ 有专业团队帮你「科学卖」，不是靠运气</h4>
+  <p>从房源核验、三维定价、包装美化，到全城联卖、带看管理、专人议价、交割风控，每一步都有具体交付物，而不是「挂上去等电话」。</p>
+</div>
+<div class="benefit">
+  <h4>④ 有人替你守价格</h4>
+  <p>专员全权代谈、制造多组客户竞价氛围，用「匹配好买家」而不是「压你降价」来促成成交。挂牌价、预期价、底线价三档策略，不在电话里凭感觉报。</p>
+</div>
+<div class="benefit">
+  <h4>⑤ 每一步你都看得见</h4>
+  <p>推广数据、带看反馈、客户出价、市场变化，按期主动同步给你。决策权始终在你手上——谈不谈、让不让，你拍板。</p>
+</div>
+
+<!-- ============ 四 服务流程 ============ -->
+<h2 class="sec">四 · 你的房子，会被怎么服务<small>THE PROCESS</small></h2>
+<p class="lead">一个可验收的七步流程。你可以对照：哪一步你的中介做到了，哪一步还停在「挂上去等」。</p>
+
+<div class="card">
+  <div class="flow">
+    <div class="step"><span class="k">STEP 1</span><b>房源诊断</b><span>产权/抵押核验<br>需求访谈</span></div>
+    <div class="step"><span class="k">STEP 2</span><b>定价报告</b><span>同小区近半年成交<br>+在售竞品+历史周期</span></div>
+    <div class="step"><span class="k">STEP 3</span><b>包装美化</b><span>保洁、软装焕新<br>VR/高清拍摄</span></div>
+    <div class="step"><span class="k">STEP 4</span><b>全域联卖</b><span>全城中介+自媒体矩阵<br>统一对外报价</span></div>
+    <div class="step"><span class="k">STEP 5</span><b>带看管理</b><span>专属管家统一对接<br>过滤无效客户</span></div>
+    <div class="step"><span class="k">STEP 6</span><b>专员议价</b><span>全权代谈、过滤试探<br>制造竞价氛围</span></div>
+    <div class="step"><span class="k">STEP 7</span><b>交割风控</b><span>律师审核文件<br>陪同网签过户</span></div>
+  </div>
+  <p class="note">每一步都有明确交付物：诊断报告、定价报告、营销排期、周度反馈、谈判记录、交易文件。流程不透明，就谈不上「为你代表」。</p>
+</div>
+
+<!-- ============ 五 数据说话 ============ -->
+<h2 class="sec">五 · 数据说话：效率确实不一样<small>THE NUMBERS</small></h2>
+<p class="lead">「好」不能只靠感觉。把各地机构的公开数据放在同一把尺子上——<b>注意各城市、各机构口径不同，这里看的是量级差别，不是精确承诺</b>。</p>
+
+<div class="card">
+  <h3>成交周期：单边代理 vs 传统挂牌（量级参照）</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-label">常州·传统挂牌平均</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">约 260 天</div></div>
+    <div class="bar-row"><div class="bar-label">上海·行业平均</div><div class="bar-track"><div class="bar-fill" style="width:81%"></div></div><div class="bar-val">约 210 天</div></div>
+    <div class="bar-row"><div class="bar-label">深圳·试点前平均</div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><div class="bar-val">约 87 天</div></div>
+    <div class="bar-row"><div class="bar-label">深圳·试点后平均</div><div class="bar-track"><div class="bar-fill gold" style="width:24%"></div></div><div class="bar-val">约 62 天</div></div>
+    <div class="bar-row"><div class="bar-label">常州·单边代理平均</div><div class="bar-track"><div class="bar-fill gold" style="width:23%"></div></div><div class="bar-val">约 60 天</div></div>
+    <div class="bar-row"><div class="bar-label">上海·卖方单边平均</div><div class="bar-track"><div class="bar-fill gold" style="width:15%"></div></div><div class="bar-val">约 40 天</div></div>
+  </div>
+  <p class="note">口径提醒：260/60 天为常州小牛看房口径，210/40 天为上海房小邦口径，87/62 天为深圳试点前后口径（王博士引述公开数据）。不同城市不同统计范围，看量级差，非个案承诺。</p>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h3>单边代理房源成交占比在上升</h3>
+    <div class="prog-row"><div class="t"><span>深圳（试点后）</span><b>从 0% → 35%</b></div><div class="prog-track"><div class="prog-fill" style="width:35%"></div></div></div>
+    <div class="prog-row"><div class="t"><span>上海部分区域（跟进后）</span><b>&gt; 40%</b></div><div class="prog-track"><div class="prog-fill" style="width:42%"></div></div></div>
+    <div class="prog-row"><div class="t"><span>常州·去化率（114/500+ 套）</span><b>约 21%</b></div><div class="prog-track"><div class="prog-fill" style="width:21%"></div></div></div>
+    <p class="note">来源：优卖房王博士（2026.3）引述公开数据；常州小牛看房公布数据。占比上升说明选择它的业主在变多，不代表个案结果。</p>
+  </div>
+  <div class="card">
+    <h3>上海卖方单边成交周期分布</h3>
+    <div class="prog-row"><div class="t"><span>30 天内成交</span><b>60%+</b></div><div class="prog-track"><div class="prog-fill" style="width:60%"></div></div></div>
+    <div class="prog-row"><div class="t"><span>60 天内成交</span><b>75%</b></div><div class="prog-track"><div class="prog-fill" style="width:75%"></div></div></div>
+    <div class="prog-row"><div class="t"><span>90 天内成交</span><b>89%</b></div><div class="prog-track"><div class="prog-fill" style="width:89%"></div></div></div>
+    <p class="note">来源：房小邦 600+ 成交案例统计（机构自述口径）。具体房源结果以实际市场为准，不作为承诺。</p>
+  </div>
+</div>
+
+<!-- ============ 六 为什么是未来 ============ -->
+<h2 class="sec">六 · 为什么它越来越像是「未来方向」<small>WHY THE FUTURE</small></h2>
+<p class="lead">不是我们一家在说。从制度、到成熟市场、再到真实选择，单边代理正被越来越多地验证。</p>
+
+<div class="grid3">
+  <div class="card">
+    <h3>① 深圳制度先行</h3>
+    <p style="font-size:13px;color:var(--ink-2);">2021 年 11 月，深圳上线全国首个「单边代理」二手房交易系统，买卖双方独立委托、各为其主。官方明确：佣金不因单边模式而额外增加。</p>
+  </div>
+  <div class="card">
+    <h3>② 香港成熟市场已跑通</h3>
+    <p style="font-size:13px;color:var(--ink-2);">香港《地产代理条例》下，买卖双方常见「各付各的约 1%」，委托形式可选单边/双边，持牌监管、协议（Form 3）写清权责。</p>
+  </div>
+  <div class="card">
+    <h3>③ 真实选择越来越多</h3>
+    <p style="font-size:13px;color:var(--ink-2);">上海部分区域单边占比已超 40%，深圳从 0 升到 35%。业主用脚投票，本质是更想要「被代表」，而不是「被撮合」。</p>
+  </div>
+</div>
+
+<div class="kbox">
+  <b>一句话总结：</b>当市场从「信息差赚快钱」走向「专业服务赚口碑」，<b>只代表一方的代理人</b>，更匹配业主「省心、透明、被尊重」的核心诉求——这正是它成为趋势的底气。
+</div>
+
+<!-- ============ 七 费用 ============ -->
+<h2 class="sec">七 · 关于费用：透明，才是真单边<small>FEES</small></h2>
+<p class="lead">收费方式本身，就是立场的试金石。优秀的单边代理，费用一定是「向委托方收、写在合同里、可提前算清」。</p>
+
+<div class="card">
+  <table>
+    <tr><th>模式</th><th>收费结构（公开资料整理）</th><th>立场信号</th></tr>
+    <tr><td><b>深圳·制度口径</b></td><td>官方明确：佣金不因单边模式增加；中介服务费不超过成交价 3%</td><td>制度上不鼓励靠模式加价</td></tr>
+    <tr><td><b>香港·市场惯例</b></td><td>买卖双方各自向自己的代理付约 1%；写进 Form 3，非法定、须单独协商</td><td>各付各的，谁都不吃谁的</td></tr>
+    <tr><td><b>常州·小牛看房</b></td><td>收出售底价 2%，其中 1% 分给带来客户的成交方，用分成撬动全城联卖</td><td>只向业主收，利益让给联卖方</td></tr>
+    <tr><td><b>上海·房小邦</b></td><td>前置 1 万预付金（可抵扣）+ 成交后总价 0.88%（5 万起步）；绝不收买方费用</td><td>透明、无隐形费、未成交按协议退</td></tr>
+  </table>
+  <p class="note">以上为各地机构公开披露口径整理，具体以你签订的协议为准。核心判断标准：收费项目、比例、时点是否白纸黑字写清，且只向你一方收取。</p>
+</div>
+
+<!-- ============ 八 真假自查 ============ -->
+<h2 class="sec">八 · 签约前，用这张清单自查<small>CHECK BEFORE SIGNING</small></h2>
+<p class="lead">这份清单两边都能用：你用来挑机构，我们也用来照镜子——我们宣称「只代表你」，业务上就得条条做到。</p>
+
+<div class="tf">
+  <div class="col real">
+    <h4>真单边的样子 ✓</h4>
+    <ul>
+      <li>只收你（委托方）一方的钱，不代买方收佣</li>
+      <li>合同写清期限、服务内容、终止权</li>
+      <li>签约前给定价报告/市场分析，不给空头承诺</li>
+      <li>专属管家单点对接，你不被多家中介打扰</li>
+      <li>推广数据、带看反馈、出价情况定期书面同步</li>
+      <li>议价由专员代谈，替你过滤无效试探</li>
+      <li>交易文件有律师审核，资金走监管</li>
+      <li>敢把「每月带看不低于 N 组，否则可终止」写进协议</li>
+      <li>案例可核验：给同小区同类型房源的真实记录</li>
+    </ul>
+  </div>
+  <div class="col fake">
+    <h4>伪单边的样子 ✕</h4>
+    <ul>
+      <li>嘴上说「只站你这边」，实际还在双边撮合</li>
+      <li>不签书面协议，或期限/权责模糊</li>
+      <li>只见面一次就催签，不做诊断不出报告</li>
+      <li>你同时被多家中介打电话议价，无人挡</li>
+      <li>挂牌后没有任何反馈，你被动等</li>
+      <li>不见面、不带看就劝你降价</li>
+      <li>用假客户、定金套路压价</li>
+      <li>隐藏「无论是否成交均收费」类条款</li>
+      <li>只讲「平均 40 天卖出」，拿不出具体案例</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h3>深圳业主的两个官方查证工具</h3>
+  <ul class="tight">
+    <li><b>机构健康指数</b>：深房中协评定并定期发布，50 分为行业合格基准线，得分越高代表成交效率、经纪人星级、诚信状况越好。</li>
+    <li><b>行业智能监测系统</b>（jc.szfzx.org）：输入机构名称即可查健康指数、网签成交数据、下辖门店/经纪人、诚信记录。</li>
+  </ul>
+  <p class="note">敢于主动引导你去查我们的，本身就是立场自信的表现——敢被查，才敢托付。</p>
+</div>
+
+<!-- ============ 九 行动 CTA ============ -->
+<div class="cta">
+  <h3>想看看您的房子，用单边代理大概是什么节奏？</h3>
+  <p>我们可以先做一份<b style="color:#f3e6bd;">免费的房源诊断</b>：核产权、看市场、给一个基于真实成交的定价参考。不用先签约，先聊清楚再决定。</p>
+  <div class="btn">联系您的专属顾问，约一次诊断</div>
+</div>
+<p class="note" style="text-align:center;">本指南为科普参考，所列数据均为机构公开披露/自述口径的量级参照，不构成对任何房源的成交承诺。具体服务与结果以您签订的正式协议为准。</p>
+
+<!-- ============ 十 来源 ============ -->
+<h2 class="sec">十 · 内容来源<small>SOURCES</small></h2>
+<div class="card">
+  <ul class="src" style="list-style:none;">
+    <li>① 深圳市房地产中介协会资讯版：《单边代理时代下，消费者如何才能选到"靠谱"的中介？》（2021-12-30）——机构健康指数、行业智能监测系统 jc.szfzx.org</li>
+    <li>② 优卖房 王博士：《单边代理｜卖房快人一步 开盘到卖出3天》（2026-03-16）——西安操盘案例、平均周期口径</li>
+    <li>③ 优卖房 王博士：《单边代理会成为二手房交易的"新主流"吗？》（2026-03-19）——深圳/上海试点数据、趋势判断</li>
+    <li>④ 深圳市房地产信息网（szhome）：《两年没卖出去的房子，70天搞定！》——云联地产 × 晟创置业跨机构单边合作案例</li>
+    <li>⑤ 小牛看房/常居地产：《深圳单边代理制度实行两年，房地产交易更高效、流程更便捷》——制度定义、佣金口径</li>
+    <li>⑥ 香港地产代理监管局（EAA）：《委托地产代理须知》+ 执业通告 24-01(CR)——单边/双边委托、Form 3、佣金规则</li>
+    <li>⑦ 常州小牛看房：《什么是单边代理？你需要知道的都在这里》——业主原声、2% 收费结构、服务清单</li>
+    <li>⑧ 上海房小邦：《只站房东立场》等——六大服务模块、定价法、收费结构、周期与溢价数据</li>
+  </ul>
+  <p class="note">说明：案例数据多为机构公开披露/自述口径，用于量级参照；对外引用须标注来源，且不作为对客户的成交承诺。</p>
+</div>
+
+<div class="footer">
+  2026-10-14 ｜ 业主科普指南，不构成成交承诺
+</div>
+
+</div>
+</body>
+</html>
